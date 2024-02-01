@@ -1,0 +1,62 @@
+https://www.linux.com/topic/desktop/how-install-and-use-docker-linux/ : How to Install and Use Docker on Linux
+https://www.linuxtechi.com/how-to-install-minikube-on-ubuntu/ : How to Install Minikube on Ubuntu 22.04 | 20.04
+https://kubernetes.io/fr/docs/tasks/tools/install-minikube/
+http://192.168.86.133:9000/sessions/new?return_to=%2F   : lien sonarqube
+sudo apt update
+sudo apt install -y curl wget apt-transport-https
+sudo curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikubeminikube version
+sudo curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+chmod +x minikube
+sudo mkdir -p /usr/local/bin/
+sudo install minikube /usr/local/bin/
+minikube version
+minikube version: v1.32.0
+kubectl version -o yaml
+sudo usermod -aG docker $USER && newgrp docker
+minikube status
+kubectl cluster-info
+kubectl get nodes
+kubectl get pods
+
+--------------------installer helm----------------
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+sudo chmod 700 get_helm.sh
+./get_helm.sh
+helm version
+2--Install Prometheus on EKS
+helm repo add stable https://charts.helm.sh/stable          ///We need to add the Helm Stable Charts for our local client
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts     ///Add Prometheus Helm repo
+
+kubectl create namespace prometheus            ///Create Prometheus namespace
+kubectl get namespace
+helm install stable prometheus-community/kube-prometheus-stack -n prometheus      ///Install Prometheus
+
+kubectl get pods -n prometheus          ///To check whether Prometheus is installed
+
+kubectl get svc -n prometheus           ///to check the services file (svc) of the Prometheus
+kubectl edit svc stable-kube-prometheus-sta-prometheus -n prometheus
+kubectl get svc -n prometheus
+ouma@ubuntu:~$ minikube service list
+|-------------|----------------------------------------------------|---------------|---------------------------|
+|  NAMESPACE  |                        NAME                        |  TARGET PORT  |            URL            |
+|-------------|----------------------------------------------------|---------------|---------------------------|
+| default     | kubernetes                                         | No node port  |                           |
+| kube-system | kube-dns                                           | No node port  |                           |
+| kube-system | stable-kube-prometheus-sta-coredns                 | No node port  |                           |
+| kube-system | stable-kube-prometheus-sta-kube-controller-manager | No node port  |                           |
+| kube-system | stable-kube-prometheus-sta-kube-etcd               | No node port  |                           |
+| kube-system | stable-kube-prometheus-sta-kube-proxy              | No node port  |                           |
+| kube-system | stable-kube-prometheus-sta-kube-scheduler          | No node port  |                           |
+| kube-system | stable-kube-prometheus-sta-kubelet                 | No node port  |                           |
+| prometheus  | alertmanager-operated                              | No node port  |                           |
+| prometheus  | prometheus-operated                                | No node port  |                           |
+| prometheus  | stable-grafana                                     | No node port  |                           |
+| prometheus  | stable-kube-prometheus-sta-alertmanager            | No node port  |                           |
+| prometheus  | stable-kube-prometheus-sta-operator                | No node port  |                           |
+| prometheus  | stable-kube-prometheus-sta-prometheus              | http-web/9090 | http://192.168.49.2:31130 |
+| prometheus  | stable-kube-state-metrics                          | No node port  |                                       //nhez @ip:31130 w nektebha fi browser VM 
+| prometheus  | stable-prometheus-node-exporter                    | No node port  |                           |
+|-------------|----------------------------------------------------|---------------|---------------------------|
+
+
